@@ -1,6 +1,4 @@
 # PFCFuse
-~~~markdown
-# PFCFuse
 Codes for ***PFCFuse: A Poolformer and CNN fusion network for Infrared-Visible Image Fusion. ***
 
 ## 🌐 Usage
@@ -44,4 +42,3 @@ and the trained model is available in ``'./models/'``.
 
 - Zhao Z, Bai H, Zhang J, et al. Cddfuse: Correlation-driven dual-branch feature decomposition for multi-modality image fusion[C]
 //Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition.
-~~~
