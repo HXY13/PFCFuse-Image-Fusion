@@ -27,6 +27,7 @@ python test_IVF.py
 ```
 
 ## 相关工作
+```
 @inproceedings{zhao2023cddfuse,
   title={Cddfuse: Correlation-driven dual-branch feature decomposition for multi-modality image fusion},
   author={Zhao, Zixiang and Bai, Haowen and Zhang, Jiangshe and Zhang, Yulun and Xu, Shuang and Lin, Zudi and Timofte, Radu and Van Gool, Luc},
@@ -34,3 +35,4 @@ python test_IVF.py
   pages={5906--5916},
   year={2023}
 }
+```
