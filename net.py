@@ -1,4 +1,3 @@
-# poolformer
 import torch
 import torch.nn as nn
 import math
@@ -9,14 +8,6 @@ from einops import rearrange
 
 
 def drop_path(x, drop_prob: float = 0., training: bool = False):
-    """
-    Drop paths (Stochastic Depth) per sample (when applied in main path of residual blocks).
-    This is the same as the DropConnect impl I created for EfficientNet, etc networks, however,
-    the original name is misleading as 'Drop Connect' is a different form of dropout in a separate paper...
-    See discussion: https://github.com/tensorflow/tpu/issues/494#issuecomment-532968956 ... I've opted for
-    changing the layer and argument names to 'drop path' rather than mix DropConnect as a layer name and use
-    'survival rate' as the argument.
-    """
     if drop_prob == 0. or not training:
         return x
     keep_prob = 1 - drop_prob
@@ -40,7 +31,6 @@ class DropPath(nn.Module):
 
     def forward(self, x):
         return drop_path(x, self.drop_prob, self.training)
-
 
 class Pooling(nn.Module):
     def __init__(self, kernel_size=3):
@@ -72,13 +62,6 @@ class PoolMlp(nn.Module):
         self.act = act_layer()
         self.fc2 = nn.Conv2d(hidden_features, out_features, 1, bias=bias)
         self.drop = nn.Dropout(drop)
-        # self.apply(self._init_weights)
-
-    # def _init_weights(self, m):
-    #     if isinstance(m, nn.Conv2D):
-    #         trunc_normal_(m.weight)
-    #         if m.bias is not None:
-    #             zeros_(m.bias)
 
     def forward(self, x):
         x = self.fc1(x)  # (B, C, H, W) --> (B, C, H, W)
@@ -87,7 +70,6 @@ class PoolMlp(nn.Module):
         x = self.fc2(x)  # (B, C, H, W) --> (B, C, H, W)
         x = self.drop(x)
         return x
-
 
 class BaseFeatureExtraction(nn.Module):
     def __init__(self, dim, pool_size=3, mlp_ratio=4.,
@@ -369,7 +351,6 @@ class Restormer_Encoder(nn.Module):
         self.encoder_level1 = nn.Sequential(
             *[TransformerBlock(dim=dim, num_heads=heads[0], ffn_expansion_factor=ffn_expansion_factor,
                                bias=bias, LayerNorm_type=LayerNorm_type) for i in range(num_blocks[0])])
-
         self.baseFeature = BaseFeatureExtraction(dim=dim)
 
         self.detailFeature = DetailFeatureExtraction()
@@ -424,4 +405,3 @@ if __name__ == '__main__':
     window_size = 8
     modelE = Restormer_Encoder().cuda()
     modelD = Restormer_Decoder().cuda()
-
