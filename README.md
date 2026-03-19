@@ -36,3 +36,6 @@ python test_IVF.py
   year={2023}
 }
 ```
+
+## 图像融合AI工具
+https://image-fusion-toolkit.nocode.host
